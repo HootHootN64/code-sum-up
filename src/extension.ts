@@ -36,7 +36,7 @@ class WordCounter {
         let wordCount = this._getWordCount(doc);
 
         // Update the status bar
-        this._statusBarItem.text = wordCount !== 1 ? `${wordCount} Words` : '1 Word';
+        this._statusBarItem.text = wordCount !== 1 ? `$(plus) ${wordCount} Words` : '$(plus) 1 Word';
         this._statusBarItem.show();
     }
 
