@@ -19,6 +19,9 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(wordCounter);
 }
 
+
+// from https://stackoverflow.com/a/42264780/1013
+const NUMERIC_REGEXP = /[-]{0,1}[\d]*[\.]{0,1}[\d]+/g;
 class WordCounter {
 
     private _statusBarItem: StatusBarItem = window.createStatusBarItem(StatusBarAlignment.Left);
@@ -39,23 +42,26 @@ class WordCounter {
 
         // Update the status bar
         this._statusBarItem.text = `Sum: ${wordCount}`;
-        console.log(this._statusBarItem.text);
         this._statusBarItem.show();
     }
 
     public _getWordCount(doc: string): number {
+        let lines = doc.trim().split('\n');
 
-        let docContent = doc;
+        // extracts all the numbers in the selected lines
+        // and converts them to floats
+        // and if there is a number, get only the first one found
+        let numLines = lines.map((line) => {
+            const nums = line.match(NUMERIC_REGEXP);
+            // the +(thingy) is doing the conversion of string to float
+            if (nums && nums.length > 0) { return +(nums[0]); }
+            else { return 0; }
+        });
 
-        // Parse out unwanted whitespace so the split is accurate
-        docContent = docContent.replace(/(< ([^>]+)<)/g, '').replace(/\s+/g, ' ');
-        docContent = docContent.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-        let wordCount = 0;
-        if (docContent !== "") {
-            wordCount = docContent.split(" ").length;
-        }
+        // add up lines
+        let total = numLines.reduce((tot, curr) => tot + curr, 0);
 
-        return wordCount;
+        return total;
     }
 
     dispose() {
