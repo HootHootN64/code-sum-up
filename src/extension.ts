@@ -8,7 +8,7 @@ export function activate(context: ExtensionContext) {
 
     // Use the console to output diagnostic information (console.log) and errors (console.error).
     // This line of code will only be executed once when your extension is activated.
-    console.log('Congratulations, your extension "WordCount" is now active!');
+    console.log('Code sum up is now active!');
 
     // create a new word counter
     let wordCounter = new WordCounter();
@@ -18,7 +18,6 @@ export function activate(context: ExtensionContext) {
     context.subscriptions.push(controller);
     context.subscriptions.push(wordCounter);
 }
-
 
 // from https://stackoverflow.com/a/42264780/1013
 const NUMERIC_REGEXP = /[-]{0,1}[\d]*[\.]{0,1}[\d]+/g;
