@@ -1,6 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the necessary extensibility types to use in your code below
-import { window, commands, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem, TextDocument } from 'vscode';
+import { window, Disposable, ExtensionContext, StatusBarAlignment, StatusBarItem } from 'vscode';
 
 // This method is called when your extension is activated. Activation is
 // controlled by the activation events defined in package.json.
@@ -32,17 +32,20 @@ class WordCounter {
             return;
         }
 
-        let doc = editor.document;
-        let wordCount = this._getWordCount(doc);
+        let selection = editor.selection;
+        let text = editor.document.getText(selection);
+
+        let wordCount = this._getWordCount(text);
 
         // Update the status bar
-        this._statusBarItem.text = wordCount !== 1 ? `$(plus) ${wordCount} Words` : '$(plus) 1 Word';
+        this._statusBarItem.text = `Sum: ${wordCount}`;
+        console.log(this._statusBarItem.text);
         this._statusBarItem.show();
     }
 
-    public _getWordCount(doc: TextDocument): number {
+    public _getWordCount(doc: string): number {
 
-        let docContent = doc.getText();
+        let docContent = doc;
 
         // Parse out unwanted whitespace so the split is accurate
         docContent = docContent.replace(/(< ([^>]+)<)/g, '').replace(/\s+/g, ' ');
