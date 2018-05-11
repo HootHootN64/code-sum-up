@@ -11,14 +11,16 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello"
+        "onCommand:extension.sumSelection"
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [{
-            "command": "extension.sayHello",
-            "title": "Hello World"
-        }]
+        "commands": [
+            {
+                "command": "extension.sumSelection",
+                "title": "Sum selection"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
