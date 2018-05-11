@@ -11,17 +11,9 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sumSelection"
+        "*"
     ],
     "main": "./out/extension",
-    "contributes": {
-        "commands": [
-            {
-                "command": "extension.sumSelection",
-                "title": "Sum selection"
-            }
-        ]
-    },
     "scripts": {
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",
